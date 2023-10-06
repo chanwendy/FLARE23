@@ -109,20 +109,7 @@ val_transforms = Compose(
 
 data_path = "your falre.json path "
 
-datalist = load_decathlon_datalist(data_path, True, "FLARE_train")
 val_files = load_decathlon_datalist(data_path, True, "FLARE_val")
-
-train_ds = CacheDataset(
-    data=datalist,
-    transform=train_transforms,
-    cache_num=10,
-    cache_rate=1.0,
-    num_workers=2,
-)
-
-train_loader = DataLoader(
-    train_ds, batch_size=1, shuffle=True, num_workers=2, pin_memory=True
-)
 
 val_ds = CacheDataset(
     data=val_files, transform=val_transforms, cache_num=6, cache_rate=1.0,num_workers=2
@@ -289,7 +276,9 @@ epoch_loss_values = []
 metric_values = []
 nsd_values = []
 # load your model path
-model.load_state_dict(torch.load(os.path.join(root_dir, "swinunter_best_metric_model8.pth")))
+# model.load_state_dict(torch.load(os.path.join(root_dir, "swinunter_best_metric_model8.pth")))
+model_path = "your model path"
+model.load_state_dict(torch.load(model_path))
 print(f"train completed, best_metric: {dice_val_best:.4f} " f"at iteration: {global_step_best}")
 epoch_iterator_val = tqdm(val_loader, desc="Validate (X / X Steps) (dice=X.X)", dynamic_ncols=True)
 dice_list, dice_val, nsdlist, nsd_mean = validation(epoch_iterator_val)

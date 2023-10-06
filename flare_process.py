@@ -9,6 +9,8 @@ import SimpleITK as sitk
 import pydicom
 from skimage.transform import resize
 from tqdm import tqdm
+import json
+
 
 
 FLARE_path = "/data/MING/data/FLARE/train/images"
@@ -81,4 +83,19 @@ for i in tqdm(range(len(names))):
 	nii_file = sitk.GetImageFromArray(nii_file)
 	sitk.WriteImage(nii_file, label_path_prefix)
 
+
+
+def save_json(flare_path, flare_label_path, save_path):
+    flare_labels = glob.glob(os.path.join(flare_label_path, "*.nii.gz"))
+    flare_labels.sort()
+    flare = glob.glob(os.path.join(flare_path,"*.nii.gz"))
+    flare.sort()
+    pcr_json = {"FLARE_train": [], "FLARE_val": []}
+    for i in range(len(flare)):
+        file = flare[i]
+        label_file = flare_labels[i]
+        pcr_json["FLARE_val"].append({"image": file, "label": label_file})
+    json_str = json.dumps(pcr_json, indent=4)
+    with open(os.path.join(save_path,"flare.json"), 'w') as json_file:
+        json_file.write(json_str)
 
