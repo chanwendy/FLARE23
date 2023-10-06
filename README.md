@@ -4,9 +4,7 @@ This is a solution for FLARE23
 
 First you should process all the data by `flare_process.py`
 
-```
-In the flare_process.py you should modify the data path variable such as:FLARE_path, FLARE_label_path, flare_to_path ,flare_label_to_path, which means the image data path, and the label path, after process image save path, and after process label save path.
-```
+In the `flare_process.py` you should modify the data path variable such as: `FLARE_path`, `FLARE_label_path`, `flare_to_path` ,`flare_label_to_path`, which means the source image data path, and the source  label path, after process image save path, and after process label save path.
 
 
 
