@@ -242,20 +242,20 @@ def validation(epoch_iterator_val):
             dicelist.append(dice_metric)
             epoch_iterator_val.set_description("Validate (%d / %d Steps)" % (global_step, 10.0))
 
-            # del val_outputs_list
-            # del val_labels
-            # del val_inputs
-            # del val_outputs
-            # del val_labels_list
-            # for j in range(1, 15):
-            #     dice = avg_dsc(val_output_convert[0].unsqueeze(0).detach().cpu(), val_labels_convert[0].unsqueeze(0).detach().cpu(), botindex=j, topindex=j+1).item()
-            #     for i in range(val_labels_convert[0].shape[-1]):
-            #         xx = val_labels_convert[0][j, ..., i].unsqueeze(dim=0).unsqueeze(dim=0).detach().cpu()
-            #         yy = val_output_convert[0][j, ..., i].unsqueeze(dim=0).unsqueeze(dim=0).detach().cpu()
-            #         nsd(xx, yy)
-            #     nsd_val = nsd.aggregate()[0].item()
-            #     dice_total_list[j-1].append(dice)
-            #     nsd_total_list[j-1].append(nsd_val)
+            del val_outputs_list
+            del val_labels
+            del val_inputs
+            del val_outputs
+            del val_labels_list
+            for j in range(1, 15):
+                dice = avg_dsc(val_output_convert[0].unsqueeze(0).detach().cpu(), val_labels_convert[0].unsqueeze(0).detach().cpu(), botindex=j, topindex=j+1).item()
+                for i in range(val_labels_convert[0].shape[-1]):
+                    xx = val_labels_convert[0][j, ..., i].unsqueeze(dim=0).unsqueeze(dim=0).detach().cpu()
+                    yy = val_output_convert[0][j, ..., i].unsqueeze(dim=0).unsqueeze(dim=0).detach().cpu()
+                    nsd(xx, yy)
+                nsd_val = nsd.aggregate()[0].item()
+                dice_total_list[j-1].append(dice)
+                nsd_total_list[j-1].append(nsd_val)
 
         mean_dice_val = dice_metric.aggregate().item()
         nsd_mean = 0
